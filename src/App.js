@@ -7,13 +7,15 @@ class App extends Component {
 
   initialize() {
     var self = this;
-    $.get(
-      'https://www.opendataphilly.org/dataset/71cf84e5-c6df-44d6-91ef-63f9b880e98e/resource/40daf627-b8c4-43b0-8d73-3cb8f9ccae15/download/keyspotlocationdata.geojson',
-      function(res){
-        self.setState(res, self.initMap.bind(self));
-      }
-    );
-  }
+    $(document).ready(function() {
+      $.get(
+        'https://www.opendataphilly.org/dataset/71cf84e5-c6df-44d6-91ef-63f9b880e98e/resource/40daf627-b8c4-43b0-8d73-3cb8f9ccae15/download/keyspotlocationdata.geojson',
+        function(res){
+          self.setState(res, self.initMap.bind(self));
+        }
+      );
+    });
+  } 
 
   populateToolbar() {
     var keyspots = this.state.features;
@@ -76,7 +78,6 @@ class App extends Component {
         title: keyspots[i].properties.Name
       });
       this.state.features[i]['marker'] = marker
-      console.log(this.state.features)
       this.infoWindowHandler(map, marker, infowindow, infowindows, i);
     }
   }
